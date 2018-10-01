@@ -5,16 +5,16 @@ using std::endl;
 
 VMTHOOKS * hooker = new VMTHOOKS;
 
-class VirtualTable
+class shitgame
 {
 public:
 
-	virtual void VirtualFunction01(void);
+	virtual void CreateMove(void);
 };
 
-void VirtualTable::VirtualFunction01(void)
+void shitgame::CreateMove(void)
 {
-	cout << "VirtualFunction01 called" << endl;
+	cout << "CreateMove called" << endl;
 }
 
 // we use this to store and call our function
@@ -23,18 +23,23 @@ oVFunction oFunctionBase;
 
 
 void __fastcall hook(void* thisptr, int edx) {
-
-	std::cout << "hacked" << std::endl;
 	oFunctionBase(thisptr);
+	cout << "ultra hacking aimbot" << endl;
+	while(1)
+		std::cout << "getting aim aingles" << endl;
+
 }
 
 int main()
 {
-	VirtualTable* sum = new VirtualTable();
-	sum->VirtualFunction01();
+	shitgame* sum = new shitgame();
+	sum->CreateMove();
 	oFunctionBase = (oVFunction)hooker->Hook((LPVOID)sum, hook, NULL);
-	sum->VirtualFunction01();
-	system("PAUSE");
+
+	while (1) {
+		sum->CreateMove();
+
+	}
 
 
 }
