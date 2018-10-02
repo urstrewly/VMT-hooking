@@ -1,6 +1,10 @@
 #include "Includes.h"
 
+int a = 10;
+int b = 10;
+
 using std::cout;
+using std::cin;
 using std::endl;
 
 VMTHOOKS * hooker = new VMTHOOKS;
@@ -9,37 +13,50 @@ class shitgame
 {
 public:
 
-	virtual void CreateMove(void);
+	virtual void CreateMove(int, int);
 };
 
-void shitgame::CreateMove(void)
+void shitgame::CreateMove(int x, int y)
 {
-	cout << "CreateMove called" << endl;
+	std::cout << x << "  :  "<< y << std::endl;
 }
 
 // we use this to store and call our function
-typedef void(__thiscall *oVFunction)(void* thisptr);
+
+using oVFunction = void(__stdcall*)(int, int);
 oVFunction oFunctionBase;
 
+void __stdcall hook(int x, int y) {
 
-void __fastcall hook(void* thisptr, int edx) {
-	oFunctionBase(thisptr);
-	cout << "ultra hacking aimbot" << endl;
-	while(1)
-		std::cout << "getting aim aingles" << endl;
+	x = x * x;
+	y = y * y;
+	std::cout << "ultra hacking aimbot" << std::endl;
+
+
+	for(int i = 0; i < 10; i++)
+		oFunctionBase(x, y);
+
+	
 
 }
 
 int main()
 {
-	shitgame* sum = new shitgame();
-	sum->CreateMove();
-	oFunctionBase = (oVFunction)hooker->Hook((LPVOID)sum, hook, NULL);
 
-	while (1) {
-		sum->CreateMove();
+		shitgame* sum = new shitgame();
+		sum->CreateMove(a, b);
 
-	}
+		
+		oFunctionBase = (oVFunction)hooker->Hook((LPVOID)sum, hook, NULL);
+		sum->CreateMove(a, b);
+
+	// unhooking breaks sum0>CrfeateMove
+		oFunctionBase  = (oVFunction)hooker->UnHook((LPVOID)sum, NULL);
+
+		for (int i = 0; i < 10; i++)
+			oFunctionBase(a, b);
+
+		system("PAUSE");
 
 
 }
