@@ -8,6 +8,7 @@ public:
 	~VMTHOOKS();
 
 	LPVOID Hook(LPVOID, PVOID, uintptr_t);
+	LPVOID UnHook(LPVOID, uintptr_t);
 
 private:
 	DWORD dwOldProtection;
