@@ -9,14 +9,14 @@ using std::endl;
 
 VMTHOOKS * hooker = new VMTHOOKS;
 
-class shitgame
+class process
 {
 public:
 
-	virtual void CreateMove(int, int);
+	virtual void movement(int, int);
 };
 
-void shitgame::CreateMove(int x, int y)
+void process::movement(int x, int y)
 {
 	std::cout << x << "  :  "<< y << std::endl;
 }
@@ -30,7 +30,7 @@ void __stdcall hook(int x, int y) {
 
 	x = x * x;
 	y = y * y;
-	std::cout << "ultra hacking aimbot" << std::endl;
+	std::cout << "ultra" << std::endl;
 
 
 	for(int i = 0; i < 10; i++)
@@ -43,8 +43,8 @@ void __stdcall hook(int x, int y) {
 int main()
 {
 
-		shitgame* sum = new shitgame();
-		sum->CreateMove(a, b);
+		process* sum = new process();
+		sum->movement(a, b);
 
 		
 		oFunctionBase = (oVFunction)hooker->Hook((LPVOID)sum, hook, NULL);
