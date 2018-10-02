@@ -48,9 +48,9 @@ int main()
 
 		
 		oFunctionBase = (oVFunction)hooker->Hook((LPVOID)sum, hook, NULL);
-		sum->CreateMove(a, b);
+		sum->movement(a, b);
 
-	// unhooking breaks sum0>CrfeateMove
+	// unhooking breaks sum->movement
 		oFunctionBase  = (oVFunction)hooker->UnHook((LPVOID)sum, NULL);
 
 		for (int i = 0; i < 10; i++)
